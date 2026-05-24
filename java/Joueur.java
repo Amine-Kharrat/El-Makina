@@ -3,6 +3,9 @@ public class Joueur {
     private List<Carte> main;       // cartes vivantes
     private List<Carte> mortes;     // cartes éliminées
     private int argent;
+    private boolean aMenti = false;
+    private Carte carteImpersonnee = null; // pour savoir quelle carte il a prétendu jouer
+
 
     private static final int ARGENT_MIN = 0;
     private static final int ARGENT_MAX = 12;
@@ -14,6 +17,19 @@ public class Joueur {
         this.argent = 2;
     }
 
+    public void setMenti(Carte carte) {
+    this.aMenti = true;
+    this.carteImpersonnee = carte;
+    }
+
+    public void resetMensonge() {
+        this.aMenti = false;
+        this.carteImpersonnee = null;
+    }
+
+    public boolean aMenti() { return aMenti; }
+    public Carte getCarteImpersonnee() { return carteImpersonnee; }
+    
     // ───── Tuer une carte (le joueur choisit laquelle) ─────
     public void tuerCarte(int index) {
     if (index < 0 || index >= main.size()) {
