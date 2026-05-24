@@ -53,10 +53,7 @@ public class Partie {
     }
 
     // ───── Setup : Distribuer 2 ou 3 cartes selon le nombre de joueurs ─────   verif
-    private void distribuerCartes() {
-        // 2-3 joueurs → 3 cartes, 4-6 joueurs → 2 cartes
-        int nbCartes = joueurs.size() <= 3 ? 3 : 2;  // changer
-
+    private void distribuerCartes(int nbCartes) {
         for (Joueur joueur : joueurs) {
             List<Carte> cartesDistribuees = new ArrayList<>(pioche.subList(0, nbCartes));
             pioche.subList(0, nbCartes).clear();
@@ -116,15 +113,13 @@ public class Partie {
     }
 
     // ───── Accusation ─────
-    public void accuser(Joueur accusateur, Joueur accuse, int indexCarte) {
+    public void accuser(Joueur accusateur, Joueur accuse) {
         if (accuse.aMenti()) {
-            // l'accusé mentait → il perd une carte
-            System.out.println(accuse.getNom() + " mentait ! Il perd une carte !");
-            accuse.tuerCarte(indexCarte); // verif index comment recuperer ?
+            System.out.println(accuse.getNom() + " mentait !");
+            // on attend l'index depuis le frontend → accuse.tuerCarte(index)
         } else {
-            // l'accusé disait la vérité → l'accusateur perd une carte
-            System.out.println(accusateur.getNom() + " avait tort ! Il perd une carte !");
-            accusateur.tuerCarte(indexCarte);
+            System.out.println(accusateur.getNom() + " avait tort !");
+            // on attend l'index depuis le frontend → accusateur.tuerCarte(index)
         }
         accuse.resetMensonge();
         verifierElimination();

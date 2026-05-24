@@ -29,7 +29,7 @@ public class Joueur {
 
     public boolean aMenti() { return aMenti; }
     public Carte getCarteImpersonnee() { return carteImpersonnee; }
-    
+
     // ───── Tuer une carte (le joueur choisit laquelle) ─────
     public void tuerCarte(int index) {
     if (index < 0 || index >= main.size()) {
@@ -62,6 +62,18 @@ public class Joueur {
         }
         this.argent -= montant;
         return true;
+    }
+
+    public List<Carte> echangerCartes(List<Integer> indexes, List<Carte> nouvellesCartes) {
+        List<Carte> cartesEchangees = new ArrayList<>();
+        indexes.sort(Collections.reverseOrder());
+        for (int index : indexes) {
+            if (index >= 0 && index < main.size()) {
+                cartesEchangees.add(main.remove(index));
+            }
+        }
+        main.addAll(nouvellesCartes);
+        return cartesEchangees;
     }
 
     // ───── Getters ─────
